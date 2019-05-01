@@ -6,16 +6,16 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active" id="home">
+          <li class="nav-item" id="home">
             <a class="nav-link" href="${contextRoot}/home">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
+           <li class="nav-item" id="viewProducts">
+            <a class="nav-link" href="${contextRoot}/show/all/products">View Products</a>
+          </li>
           <li class="nav-item" id="about">
             <a class="nav-link" href="${contextRoot}/about">About</a>
-          </li>
-          <li class="nav-item" id="viewProducts">
-            <a class="nav-link" href="${contextRoot}/home">View Products</a>
           </li>
           <li class="nav-item" id="contact">
             <a class="nav-link" href="${contextRoot}/contact">Contact</a>

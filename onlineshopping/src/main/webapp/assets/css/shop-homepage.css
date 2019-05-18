@@ -238,3 +238,15 @@ input:checked + .slider:before {
 		z-index:9999;
 		background:url(../images/pre-loader.gif) 50% no-repeat #fff
 }
+
+.dataTableImg{
+	width: 100px;
+	height: 100px;
+}
+
+.jumbotronCenter {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}

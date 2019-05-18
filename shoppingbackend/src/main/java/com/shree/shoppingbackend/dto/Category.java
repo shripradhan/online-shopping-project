@@ -1,16 +1,36 @@
 package com.shree.shoppingbackend.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="category")
 public class Category {
 
 	/*
 	 * Category Private  Properties
 	 */
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String name;
+	
 	private String description;
+	
+	@Column(name="image_url")
 	private String imageUrl;
+	
+	@Column(name="is_active")
 	private  boolean active = true;
+	
+	
+	//setters and getters
 	
 	public int getId() {
 		return id;
@@ -41,6 +61,12 @@ public class Category {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", description=" + description + ", imageUrl=" + imageUrl
+				+ ", active=" + active + "]";
 	}
 	
 }

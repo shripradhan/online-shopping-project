@@ -29,6 +29,22 @@
 
 <div class="container">
 
+	
+	
+		<div class="col-xs-12">
+		
+			<div class="alert alert-success alert-dismissible">
+			
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				
+				<strong>Product Added Successfully...</strong>
+			.
+			</div>
+		
+		</div>
+	
+	
+
 	<div class="card">
 
 		<div class="card-header bg-info text-white">
@@ -59,7 +75,7 @@
     	
     	</div> -->
 			<!-- <div class="my-container"> -->
-		<form:form action="#" modelAttribute="newProduct">
+		<form:form action="${contextRoot}/manage/products" method="POST" modelAttribute="newProduct">
 				<div class="form-group row justify-content-center">
 					<!-- <div class="col-sm-2"></div> -->
 					<label for="name" class="col-sm-3 col-form-label">Product Name : </label>

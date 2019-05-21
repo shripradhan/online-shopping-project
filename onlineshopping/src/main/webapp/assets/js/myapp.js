@@ -101,5 +101,18 @@ $(function(){
 		});
 	}
 	
+	//dismissing the alert after 4 seconds
+	var $alert = $('.alert');
+	
+	if($alert.length){
+		
+		setTimeout(function(){
+			
+			$alert.fadeOut('slow');
+			
+		},4000);
+		
+	}
+	
 		
 });

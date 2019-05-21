@@ -58,6 +58,16 @@ footer {
     margin: 0;
 }
 
+.my-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+
 
 /*
 	custom styling
@@ -249,4 +259,15 @@ input:checked + .slider:before {
   width: 50%;
   padding: 10px;
   text-align: center;
+}
+.help-block{
+	color : #ff0000;
+}
+
+.my-container {
+    width: 640px; /*can be in percentage also.*/
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
 }

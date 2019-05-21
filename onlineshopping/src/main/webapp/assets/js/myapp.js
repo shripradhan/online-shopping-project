@@ -11,6 +11,8 @@ $(function(){
 			case 'All Products' : 
 				$('#viewProducts').addClass('active');
 				break;
+			case 'Manage Products' : 
+				$('#manageProducts').addClass('active');
 			default :
 				if(menu == 'Home')
 					$('#home').addClass('active');
@@ -51,10 +53,11 @@ $(function(){
 				{
 					//href="/w3images/lights.jpg" target="_blank"
 					data : 'code',
+					bSortable : false,
 					mRender : function(data, type, row){
 						return '<a href="'+window.contextRoot+'/resources/images/'+data+'.jpg" target="_blank" ><img src="'+window.contextRoot+'/resources/images/'+data+'.jpg" class="dataTableImg"/></a>';
 					},
-					sortable :false,
+					
 				},
 				{
 					data : 'name'

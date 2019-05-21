@@ -78,7 +78,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@SuppressWarnings("unchecked")
 	public List<Category> listCategory() {
 		
-		String selectActiveCategory = "FROM Category WHERE active = :active";
+		String selectActiveCategory = "FROM Category WHERE active = :active ORDER BY name";
 		Session ses = sessionFactory.getCurrentSession();
 		
 		

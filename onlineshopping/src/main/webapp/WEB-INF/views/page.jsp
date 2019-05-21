@@ -76,6 +76,11 @@
 			<c:if test="${userClickSingleProduct == true}">
 				<%@ include file="./product.jsp"%>
 			</c:if>
+			
+			<!-- load only when user click on Manage Products -->
+			<c:if test="${userClickmanageProducts == true}">
+				<%@ include file="./manageProducts.jsp"%>
+			</c:if>
 		</div>
 
 		<!-- Footer -->

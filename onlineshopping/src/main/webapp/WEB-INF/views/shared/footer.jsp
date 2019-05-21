@@ -13,7 +13,7 @@
   </footer>
    -->
   
-  <footer class="page-footer font-small teal pt-1  bg-dark footer">
+  <footer class="page-footer font-small teal pt-1  bg-dark">
 
   <div class="footer-copyright text-center text-white py-2">Copyright &copy; Your Website 2019
   </div>

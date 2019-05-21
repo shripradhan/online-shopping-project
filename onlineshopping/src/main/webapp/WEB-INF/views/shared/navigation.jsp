@@ -1,3 +1,4 @@
+
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="${contextRoot}/home">Online Shop</a>
@@ -11,15 +12,23 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
+          
            <li class="nav-item" id="viewProducts">
             <a class="nav-link" href="${contextRoot}/show/all/products">View Products</a>
           </li>
+          
+           <li class="nav-item" id="manageProducts">
+            <a class="nav-link" href="${contextRoot}/manage/products">Manage Products</a>
+          </li>
+          
           <li class="nav-item" id="about">
             <a class="nav-link" href="${contextRoot}/about">About</a>
           </li>
+          
           <li class="nav-item" id="contact">
             <a class="nav-link" href="${contextRoot}/contact">Contact</a>
           </li>
+          
         </ul>
       </div>
     </div>

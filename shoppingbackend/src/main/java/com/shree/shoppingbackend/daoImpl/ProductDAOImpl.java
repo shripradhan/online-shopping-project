@@ -2,6 +2,7 @@ package com.shree.shoppingbackend.daoImpl;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.shree.shoppingbackend.dao.ProductDAO;
 import com.shree.shoppingbackend.dto.Product;
+import com.shree.shoppingbackend.dto.ProductImage;
 
 @Repository("productDAO")
 @Transactional
@@ -55,9 +57,29 @@ public class ProductDAOImpl implements ProductDAO {
 	public boolean add(Product product) {
 		try {
 			
-			 sessionFactory
-					.getCurrentSession()
-							.persist(product);
+			 Session session = sessionFactory.getCurrentSession();
+			 session.persist(product);
+			
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	@Override
+	public boolean add(Product product, List<ProductImage> productImages) {
+		try {
+			
+			 Session session = sessionFactory.getCurrentSession();
+			 
+			 session.persist(product);
+			 
+			 for(ProductImage productImage : productImages) {
+				 session.persist(productImage);
+			 }
 			
 			return true;
 			
@@ -119,11 +141,13 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<Product> listActiveProducts() {
 
 		String selectActiveProducts = "FROM Product WHERE active = :activeProduct";
-		return sessionFactory
+		List<Product> objListProducts =  sessionFactory
 					.getCurrentSession()
 							.createQuery(selectActiveProducts,Product.class)
 									.setParameter("activeProduct", true)
 												.getResultList();
+		
+		return objListProducts;
 	}
 	
 
@@ -158,5 +182,7 @@ public class ProductDAOImpl implements ProductDAO {
 											.setMaxResults(count)
 														.getResultList();
 	}
+
+	
 
 }

@@ -52,7 +52,7 @@ $(function(){
 				
 				{
 					//href="/w3images/lights.jpg" target="_blank"
-					data : 'code',
+					data : 'productImages.0.imgName',
 					bSortable : false,
 					mRender : function(data, type, row){
 						return '<a href="'+window.contextRoot+'/resources/images/'+data+'.jpg" target="_blank" ><img src="'+window.contextRoot+'/resources/images/'+data+'.jpg" class="dataTableImg"/></a>';
@@ -113,6 +113,31 @@ $(function(){
 		},4000);
 		
 	}
+	
+	//Displaying the image gallary in single product image view
+	console.log(window.productsImages);
+	
+	$('#divContainer img').on({
+		mouseover : function(){
+			$(this).css({
+				'cursor' :  'pointer',
+				'border-color' : 'pink'
+			});
+		},
+		mouseout : function(){
+			$(this).css({
+				'cursor' : 'default',
+				'border-color' : 'white'
+			});
+		},
+		click : function(){
+			var imageUrl = $(this).attr('src');
+			$('#mainImage').fadeOut(200,function(){
+				$(this).attr('src',imageUrl);
+			}).fadeIn(200);
+		}
+		
+	});
 	
 		
 });

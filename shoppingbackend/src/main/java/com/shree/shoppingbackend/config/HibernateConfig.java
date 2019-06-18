@@ -57,7 +57,7 @@ public class HibernateConfig {
 		
 		props.put("hibernate.dialect", SystemConstant.DATABASE_DIALECT);
 		props.put("hibernate.show_sql", "true");
-		props.put("hibernate.format_sql", "true");
+		props.put("hibernate.format_sql", "false");
 		
 		return props;
 	}

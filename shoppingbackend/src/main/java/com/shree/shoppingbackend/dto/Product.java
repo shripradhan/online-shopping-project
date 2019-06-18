@@ -1,14 +1,25 @@
 package com.shree.shoppingbackend.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Product {
@@ -20,13 +31,17 @@ public class Product {
 	
 	private String code;
 	
+	@NotBlank
 	private String name;
 	
+	@NotBlank
 	private String brand;
 	
+	@NotBlank
 	private String description;
 	
 	@Column(name="unit_price")
+	@Min(value=1)
 	private double unitPrice;
 	
 	private int quantity;
@@ -47,9 +62,18 @@ public class Product {
 	
 	private int views;
 	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+	@JsonManagedReference
+	private List<ProductImage> productImages = new ArrayList<ProductImage>();
+	
+	
+	@Transient
+	private List<MultipartFile> imgFiles = new ArrayList<MultipartFile>();
+	
+	
 	//default constructor
 	public Product() {
-		this.code = "PRD"+UUID.randomUUID().toString().substring(26).toUpperCase();
+		this.code = "IMG"+UUID.randomUUID().toString().substring(33).toUpperCase();
 	}
 	
 	//setters and getters methods 
@@ -149,6 +173,34 @@ public class Product {
 	public void setViews(int views) {
 		this.views = views;
 	}
+
+	
+	public List<MultipartFile> getImgFiles() {
+		return imgFiles;
+	}
+
+	public void setProductImages(List<ProductImage> productImages) {
+		this.productImages = productImages;
+	}
+
+	public List<ProductImage> getProductImages() {
+		return productImages;
+	}
+	
+	public void setImgFiles(List<MultipartFile> imgFiles) {
+		this.imgFiles = imgFiles;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", code=" + code + ", name=" + name + ", brand=" + brand + ", description="
+				+ description + ", unitPrice=" + unitPrice + ", quantity=" + quantity + ", active=" + active
+				+ ", categoryId=" + categoryId + ", supplierId=" + supplierId + ", purchases=" + purchases + ", views="
+				+ views + ", imgFiles=" + imgFiles + "]";
+	}
+
+
+	
 	
 	
 

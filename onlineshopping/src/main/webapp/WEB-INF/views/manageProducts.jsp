@@ -29,7 +29,7 @@
 
 <div class="container">
 
-	
+	<c:if test="${not empty msg}">
 	
 		<div class="col-xs-12">
 		
@@ -42,7 +42,7 @@
 			</div>
 		
 		</div>
-	
+	</c:if>
 	
 
 	<div class="card">
@@ -75,13 +75,15 @@
     	
     	</div> -->
 			<!-- <div class="my-container"> -->
-		<form:form action="${contextRoot}/manage/products" method="POST" modelAttribute="newProduct">
+		<form:form action="${contextRoot}/manage/products" method="POST" modelAttribute="newProduct" enctype="multipart/form-data">
 				<div class="form-group row justify-content-center">
 					<!-- <div class="col-sm-2"></div> -->
 					<label for="name" class="col-sm-3 col-form-label">Product Name : </label>
 					<div class="col-sm-4">
+					
 						<form:input type="text" path="name" id="name" class="form-control" placeholder="Enter Product Name"/>
-						<em class="help-block">Please Enter Product Name</em> 	
+						<form:errors path="name" cssClass="help-block" element="em"/>
+						
 					</div>
 					<!-- <div class="col-sm-2"></div> -->
 				</div>
@@ -90,8 +92,10 @@
 					<!-- <div class="col-sm-2"></div> -->
 					<label for="brand" class="col-sm-3 col-form-label">Brand Name : </label>
 					<div class="col-sm-4">
+					
 						<form:input type="text" path="brand" id="brand" class="form-control" placeholder="Enter Brand Name"/>
-						<em class="help-block">Please Enter Brand Name</em> 	
+						<form:errors path="brand" cssClass="help-block" element="em"/>
+							
 					</div>
 					<!-- <div class="col-sm-2"></div> -->
 				</div>
@@ -100,8 +104,10 @@
 					<!-- <div class="col-sm-2"></div> -->
 					<label for="description" class="col-sm-3 col-form-label">Description : </label>
 					<div class="col-sm-4">
+					
 						<form:textarea  path="description" id="description" class="form-control" placeholder="Enter Description"/>
-						<em class="help-block">Please Enter Product Description</em> 	
+						<form:errors path="description" cssClass="help-block" element="em"/>
+							
 					</div>
 					<!-- <div class="col-sm-2"></div> -->
 				</div>
@@ -110,8 +116,10 @@
 					<!-- <div class="col-sm-2"></div> -->
 					<label for="unitPrice" class="col-sm-3 col-form-label">Product Unit Price : </label>
 					<div class="col-sm-4">
+					
 						<form:input type="text"  path="unitPrice" id="unitPrice" class="form-control" placeholder="Enter Unit Price"/>
-						<em class="help-block">Please Enter Unit Price</em> 	
+						<form:errors path="unitPrice" cssClass="help-block" element="em"/>
+	
 					</div>
 					<!-- <div class="col-sm-2"></div> -->
 				</div>
@@ -121,8 +129,24 @@
 					<!-- <div class="col-sm-2"></div> -->
 					<label for="quantity" class="col-sm-3 col-form-label">Quantity Available : </label>
 					<div class="col-sm-4">
+					
 						<form:input type="number"  path="quantity" id="quantity" class="form-control" placeholder="Enter Quantity"/>
-						<em class="help-block">Please Enter Unit PriceQuantity Available</em> 	
+						<form:errors path="quantity" cssClass="help-block" element="em"/>
+						
+					</div>
+					<!-- <div class="col-sm-2"></div> -->
+				</div>
+				
+				
+				<!-- Product Image Uploading -->
+				<div class="form-group row justify-content-center">
+					<!-- <div class="col-sm-2"></div> -->
+					<label for="imgFiles" class="col-sm-3 col-form-label">Select Photos : </label>
+					<div class="col-sm-4">
+					
+						<input type="file"  name="imgFiles" id="imgFiles" multiple="multiple" class="form-control" placeholder="Select Photo's"/>
+					<%-- 	<form:errors path="quantity" cssClass="help-block" element="em"/> --%>
+						
 					</div>
 					<!-- <div class="col-sm-2"></div> -->
 				</div>
@@ -131,10 +155,11 @@
 					<!-- <div class="col-sm-2"></div> -->
 					<label for="categoryId" class="col-sm-3 col-form-label">Product Category : </label>
 					<div class="col-sm-4">
+					
 						<form:select id="categoryId" path="categoryId" class="form-control select selectpicker" data-live-search="true">
 							<form:options items="${categories}" itemLabel="name" itemValue="id"/>
 						</form:select>
-						<em class="help-block">Please Enter Unit Price</em> 	
+							
 					</div>
 					<!-- <div class="col-sm-2"></div> -->
 				</div>

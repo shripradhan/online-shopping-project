@@ -74,6 +74,18 @@
 			
 			<!-- load only when user click on single Product -->
 			<c:if test="${userClickSingleProduct == true}">
+			
+				<!-- <script type="text/javascript">
+					var prodImage = '${product.productImages}';
+					
+					window.productsImages = [] ;
+					
+					var i;
+					for (i = 0; i < prodImage.length; i++) { 
+						window.productsImages.push(prodImage[i].imgName);
+					}
+				</script> -->
+				
 				<%@ include file="./product.jsp"%>
 			</c:if>
 			

@@ -1,3 +1,16 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.shree.shoppingbackend.dto.Product" %>
+
+<%@ page import="com.shree.shoppingbackend.dto.ProductImage" %>
+
+<style>
+	
+	.imgStyle{
+		height:80px;
+		width: 80px;
+		border: 3px solid white; 
+	}
+</style>
 <div class="container">
 	
 	<!-- Breadcrumb -->
@@ -17,16 +30,38 @@
 	
 	<div class="row">
 		
-		<!-- display the product image -->
-		<div class="col-xs-12 col-sm-4">
 		
+		<!-- display the product image -->
+		<%-- <div class="col-xs-12 col-sm-4">
+			
+			<c:forEach items="${product.productImages}" var="img">
+			
 			<div class="thumbnail">
 			
-				<img src="${images}/${product.code}.jpg" class="img img-responsive" align="left"/>
+				<img src="${images}/${img.imgName}.jpg" class="img img-responsive" align="left" width="100" height="70"/>
 			
 			</div>
+			
+			</c:forEach>
 		
-		</div>
+		</div> --%>
+	<div class="col-xs-12 col-sm-4">
+		<c:forEach items="${product.productImages}" var="img" varStatus="loop">
+			<c:if test="${loop.index == 0}">
+				<img id="mainImage" height="300" width="350" style="border: 3px solid white" src="${images}/${img.imgName}.jpg" >
+				<br/>
+				<br/>
+			</c:if>
+		</c:forEach>
+		<c:forEach items="${product.productImages}" var="img" varStatus="loop">
+			<span id="divContainer">
+				<img id="mainImage" class="imgStyle" src="${images}/${img.imgName}.jpg" >
+			</span>
+		</c:forEach>
+	</div> 
+		
+		
+
 		
 		<!-- display the product description -->
 		<div class="col-xs-12 col-sm-8">

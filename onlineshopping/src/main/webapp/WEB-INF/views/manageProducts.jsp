@@ -145,7 +145,7 @@
 					<div class="col-sm-4">
 					
 						<input type="file"  name="imgFiles" id="imgFiles" multiple="multiple" class="form-control" placeholder="Select Photo's"/>
-					<%-- 	<form:errors path="quantity" cssClass="help-block" element="em"/> --%>
+						<form:errors path="imgFiles" cssClass="help-block" element="em"/>
 						
 					</div>
 					<!-- <div class="col-sm-2"></div> -->

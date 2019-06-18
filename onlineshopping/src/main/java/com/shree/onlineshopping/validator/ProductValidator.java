@@ -21,7 +21,6 @@ public class ProductValidator implements Validator {
 		Product objProduct =  (Product)target;
 		
 		//check whether file has been selected or not
-		int count = 1;
 		for (MultipartFile objMultipartFile : objProduct.getImgFiles()) {
 
 			if (objMultipartFile == null || objMultipartFile.getOriginalFilename().equals("")) {
@@ -38,7 +37,6 @@ public class ProductValidator implements Validator {
 				errors.rejectValue("imgFiles", null, "Please select only image file to upload..!");
 				return;
 			}
-			count++;
 		}
 
 

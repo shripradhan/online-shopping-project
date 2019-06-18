@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.shree.onlineshopping.util.FileUploadUtility;
+import com.shree.onlineshopping.validator.ProductValidator;
 import com.shree.shoppingbackend.dao.CategoryDAO;
 import com.shree.shoppingbackend.dao.ProductDAO;
 import com.shree.shoppingbackend.dto.Category;
@@ -69,6 +70,10 @@ public class ManagementController {
 	public String saveProduct(@Valid @ModelAttribute("newProduct") Product objProduct, BindingResult result, Model model,HttpServletRequest request) {
 		
 		List<ProductImage> productImages = new ArrayList<ProductImage>();
+		
+		//validation for image file uploading
+		new ProductValidator().validate(objProduct, result);
+		
 		//perform validation if there is any form error
 		if(result.hasErrors()) {
 			

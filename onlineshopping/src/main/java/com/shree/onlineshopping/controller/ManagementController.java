@@ -73,9 +73,18 @@ public class ManagementController {
 		
 		List<ProductImage> productImages = new ArrayList<ProductImage>();
 		
-		//validation for image file uploading
-		new ProductValidator().validate(objProduct, result);
 		
+		//handle image validation for new product
+		if(objProduct.getId() == 0) {
+			new ProductValidator().validate(objProduct, result);
+		}else {
+			for(MultipartFile imgFile : objProduct.getImgFiles()) {
+				if(!imgFile.getOriginalFilename().equals("")) {
+					new ProductValidator().validate(objProduct, result);
+				}
+			}
+			
+		}
 		//perform validation if there is any form error
 		if(result.hasErrors()) {
 			
@@ -110,8 +119,15 @@ public class ManagementController {
 			
 		}
 		
-		//perform saving product
-		objProductDAO.add(objProduct,productImages);
+		//perform saving and updating the product
+		if(objProduct.getId() ==  0) {
+			//create or save new product if id is 0
+			objProductDAO.add(objProduct,productImages);
+		}else {
+			//update the existing product is id is not 0
+			objProductDAO.update(objProduct);
+		}
+		
 		logger.info("Product going to Submit : "+objProduct.toString());
 		
 		
@@ -146,6 +162,29 @@ public class ManagementController {
 		
 		return (isActive) ? "You have Successfully Deactivate the Product with Id : "+objProduct.getId() :
 							"You have Successfully Activate the Product with Id : "+objProduct.getId();
+	}
+	
+	/*
+	 * 
+	 * Edit the single Product
+	 * 
+	 */
+	
+	
+	@RequestMapping(value="/{id}/product", method=RequestMethod.GET)
+	public ModelAndView showEditProduct(@PathVariable("id") int productId) {
+		
+		logger.info("showEditProduct(){} - "+ productId);
+		ModelAndView mav = new ModelAndView("page");
+		mav.addObject("userClickmanageProducts", true);
+		mav.addObject("title", "Manage Products");
+		
+		Product editProduct = objProductDAO.get(productId);
+		
+		//set the product that is fetch from the database
+		mav.addObject("newProduct", editProduct);
+	
+		return mav;
 	}
 	
 	/*

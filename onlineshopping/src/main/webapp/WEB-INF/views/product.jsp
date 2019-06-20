@@ -48,7 +48,7 @@
 	<div class="col-xs-12 col-sm-4">
 		<c:forEach items="${product.productImages}" var="img" varStatus="loop">
 			<c:if test="${loop.index == 0}">
-				<img id="mainImage" height="300" width="350" style="border: 3px solid white" src="${images}/${img.imgName}.jpg" >
+				<img id="mainImage" height="500" width="350" style="border: 3px solid white" src="${images}/${img.imgName}.jpg" >
 				<br/>
 				<br/>
 			</c:if>

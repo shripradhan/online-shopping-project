@@ -139,5 +139,167 @@ $(function(){
 		
 	});
 	
+	
+	//code for switch toggle buttons
+	
+	
+	
+	
+	//Jquery Data Table for Admin
+	//-----------------------------------------------------------
+	
+	
+	var $adminProductsTable = $('#adminProductTable');
+	//execute the below code only where we have this table
+	
+
+	if($adminProductsTable.length){
+		//console.log('Inside the Table');
+		
+		var jsonUrl = window.contextRoot + '/json/data/admin/all/products';
+		
+		
+		$adminProductsTable.DataTable({
+		
+			lengthMenu : [[10, 30, 50, -1],['10 Records','30 Records', '50 Records', "All Record"]],
+			pageLength : 10,
+			ajax : {
+				'url' : jsonUrl,
+				'dataSrc' : '',
+			},
+			columns : [
+				
+				{
+					data : 'id'
+				},
+				
+				{
+					//href="/w3images/lights.jpg" target="_blank"
+					data : 'productImages.0.imgName',
+					bSortable : false,
+					mRender : function(data, type, row){
+						return '<a href="'+window.contextRoot+'/resources/images/'+data+'.jpg" target="_blank" ><img src="'+window.contextRoot+'/resources/images/'+data+'.jpg" class="adminDataTableImg"/></a>';
+					},
+					
+				},
+				{
+					data : 'name'
+				},
+				{
+					data : 'brand'
+				},
+				{
+					data : 'quantity',
+					mRender : function(data, type, row){
+						if(data < 1){
+							return '<span style="color:red"> Out Of Stock !</span>';
+						}
+						return data;
+					}
+				},
+				{
+					data : 'unitPrice',
+					mRender : function(data, type, row){
+						return "&#8377; " + data;
+					}
+				},
+				
+				{
+					data : 'active',
+					bSortable : false,
+					mRender : function(data, type, row){
+						var strToggleButton = '';
+						strToggleButton += '<label class="switch">';
+						if(data){
+							strToggleButton += '<input type="checkbox" checked="checked" value="'+row.id+'"/>';
+						}else{
+							strToggleButton += '<input type="checkbox" value="'+row.id+'"/>';
+						}
+						strToggleButton += '<div class="slider"></div>';
+						strToggleButton += '</label>';
+							
+						return strToggleButton;
+					}
+				},
+				
+				{
+					data : 'id',
+					bSortable : false,
+					mRender : function(data, type, row){
+						return '<a href="'+window.contextRoot+'/manage/'+data+'/product" class="btn btn-warning">'+
+									'<span class="glyphicon glyphicon-pencil"></span>'+
+								'</a>';
+					}
+				},
+			],
+			
+			initComplete : function(){
+				
+				var api = this.api();
+				
+				api.$('.switch input[type="checkbox"]').on('change',function(){
+					
+					var checkbox = $(this);
+					var checked = checkbox.prop('checked');
+					var dMsg = (checked) ? 	'You want to Activate the Product..?' :
+											'You want to Deactivate the Product..?';
+					
+					var value = checkbox.prop('value');
+					
+					bootbox.confirm({
+						size : 'medium',
+						title : 'Product Activation & Deactivation',
+						message : dMsg,
+						buttons: {
+					        confirm: {
+					            label: '<i class="glyphicon glyphicon-ok"></i>   Yes',
+					            className: 'btn-success'
+					        },
+					        cancel: {
+					            label: '<i class="glyphicon glyphicon-remove"></i>   No',
+					            className: 'btn-danger'
+					        }
+					    },
+						callback :  function(confirmed){
+							
+							if(confirmed){
+								console.log(value);
+								
+								var activationUrl = window.contextRoot+'/manage/product/' + value + '/activation';
+								
+								$.post(activationUrl,function(data){
+									bootbox.alert({
+										size : 'medium',
+										title : 'Information',
+										message : data,
+										buttons: {
+									        ok: {
+									            label: '<i class="glyphicon glyphicon-ok"></i>   Ok',
+									            className: 'btn-success'
+									        },
+									    },
+									});
+									
+								});
+								
+								
+							}
+							else{
+								checkbox.prop('checked', !checked);
+							}
+						},
+					})
+					
+				});
+				
+			}
+			
+		});
+	}
+	
+	
+	
+	//------------------------------------------------------------
+	
 		
 });

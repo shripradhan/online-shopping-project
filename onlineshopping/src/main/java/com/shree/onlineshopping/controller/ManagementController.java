@@ -13,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -114,6 +116,36 @@ public class ManagementController {
 		
 		
 		return "redirect:/manage/products?operation=product";
+	}
+	
+	
+	
+	/*
+	 * Activate and Deactivate the Products
+	 * 
+	 */
+	
+	
+	@RequestMapping(value="/product/{id}/activation",method=RequestMethod.POST)
+	@ResponseBody
+	public String handleProductActivation(@PathVariable("id") int productId) {
+		
+		String resultMsg = "";
+		
+		//fetch the product by using their id
+		Product objProduct = objProductDAO.get(productId);
+		
+		//get product activation status
+		boolean isActive = objProduct.isActive();
+		
+		//activating or deactivating the product
+		objProduct.setActive(!objProduct.isActive());
+		
+		//updating the product
+		objProductDAO.update(objProduct);
+		
+		return (isActive) ? "You have Successfully Deactivate the Product with Id : "+objProduct.getId() :
+							"You have Successfully Activate the Product with Id : "+objProduct.getId();
 	}
 	
 	/*

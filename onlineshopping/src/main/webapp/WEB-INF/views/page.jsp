@@ -102,6 +102,9 @@
 		<script src="${js}/jquery.js"></script>
 		<script src="${js}/bootstrap.bundle.min.js"></script>
 		
+		<!-- bootbox js file -->
+		<script type="text/javascript" src="${js}/bootbox.min.js"></script>
+		
 		<!-- Jquery Datatalbe -->
 		<script type="text/javascript" src="${js}/jquery.dataTables.js"></script>
 		

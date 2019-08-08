@@ -37,7 +37,7 @@
 			
 				<button type="button" class="close" data-dismiss="alert">&times;</button>
 				
-				<strong>Product Added Successfully...</strong>
+				<strong>${msg}</strong>
 			.
 			</div>
 		
@@ -159,7 +159,12 @@
 						<form:select id="categoryId" path="categoryId" class="form-control select selectpicker" data-live-search="true">
 							<form:options items="${categories}" itemLabel="name" itemValue="id"/>
 						</form:select>
-							
+						<c:if test="${newProduct.id == 0}">
+							<div class="text-right">
+								<br/>
+								<button type="button" data-toggle="modal" data-target="#myCategoryModal" class="btn btn-warning btn-sm">Add Category</button>
+							</div>
+						</c:if>
 					</div>
 					<!-- <div class="col-sm-2"></div> -->
 				</div>
@@ -226,4 +231,49 @@
 		</div>
 		
 	<!-- </div> -->
+	<div class="modal fade" id="myCategoryModal" role="dialog" tabindex="-1">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<!-- modal header -->
+				<div class="modal-header">
+				<h4 class="modal-title">Add New Category</h4>
+					<button type="button" class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+					
+				</div>
+				<!-- modal body -->
+				<div class="modal-body">
+					<!-- Category Form -->
+					<form:form id="categoryForm" action="${contextRoot}/manage/category" modelAttribute="category"  method="POST" class="form-horizontal">
+						
+						
+						<div class="form-group row justify-content-center">
+							<label for="category_name" class="col-sm-4 control-label"><strong>Category Name : </strong></label>
+							<div class="col-sm-8">
+								<form:input type="text" path="name" class="form-control" id="category_name"/>
+							</div>
+						</div>
+						
+						<div class="form-group row justify-content-center">
+							<label for="category_description" class="col-sm-4 control-label"><strong>Description :  </strong> </label>
+							<div class="col-sm-8">
+								<form:textarea cols="" rows="5" type="text" path="description" class="form-control" id="category_description"/>
+							</div>
+						</div>
+						
+						<div class="form-group row justify-content-center">
+							<div class="col-sm-4"></div>
+							<div class="col-md-8 justify-content-center">
+								<input type="submit" value="Add Category" class="btn btn-primary"/>
+							</div>
+						</div>
+						
+						
+					</form:form>
+					
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

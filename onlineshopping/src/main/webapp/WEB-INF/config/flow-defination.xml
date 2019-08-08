@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:webflow-config="http://www.springframework.org/schema/webflow-config"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd">
+
+
+
+	<!-- WEBFLOW CONFIGURATION -->
+	<!-- Entry Point for the flow -->
+
+	<!-- configure FlowExecutor -->
+	<webflow-config:flow-executor id="flowExecutor" flow-registry="flowRegistry" />
+
+	<!-- configure FlowRegistry -->
+	<webflow-config:flow-registry id="flowRegistry" base-path="/WEB-INF/views/flows" flow-builder-services="flowBuilderServices">
+		<webflow-config:flow-location-pattern value="/**/*-flow.xml" /> <!-- /**/ become a flow id -->
+	</webflow-config:flow-registry>
+
+	<!-- OR -->
+
+	<!-- In case if you do't want ot use the base path you can user following 
+		for indicating the flow file and its id -->
+
+	<!-- <webflow-config:flow-registry id="flowRegistry"> <webflow-config:flow-location 
+		path="/WEB-INF/views/flow/*-flow.xml"/> /*-flow become a flow id </webflow-config:flow-registry> -->
+
+	<!-- OR -->
+
+	<!-- Or you can be even more expllicit about he flow ID by specifying an 
+		id attribute of the <webflow-config:flow-location> tag/element -->
+
+	<!-- <webflow-config:flow-registry id="flowRegistry"> <webflow-config:flow-location 
+		id="register" path="/WEB-INF/views/flow/*-flow.xml"/> "register" is the id 
+		</webflow-config:flow-registry> -->
+
+	<!-- configure FlowBuilderServices -->
+	<webflow-config:flow-builder-services id="flowBuilderServices" view-factory-creator="viewFactoryCreator" validator="validator"/>
+
+	<!-- configure ViewFactoryCreator -->
+	<!-- cofigure ViewFactoryCreator for resolving the view for web flow, add 
+		one or more bean which will point to the view resolver -->
+	<bean id="viewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+		<!-- for Single ViewResolver -->
+		<property name="viewResolvers" ref="viewResolver" />
+
+		<!-- for Multiple ViewResolver -->
+		<!-- <property name="viewResolvers"> <list> <ref bean="viewResolver"/> 
+			</list> </property> -->
+
+	</bean>
+
+	<!-- Configure FlowHandlerAdapter -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor" />
+	</bean>
+
+	<!-- configure FlowHandlerMapping -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="flowRegistry" ref="flowRegistry" />
+		<property name="order" value="-1" />
+	</bean>
+
+
+	<!-- configure validator bean -->
+	
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
+
+
+
+</beans>

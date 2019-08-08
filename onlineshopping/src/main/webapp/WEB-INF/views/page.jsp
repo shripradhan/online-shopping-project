@@ -110,6 +110,9 @@
 		
 		<!-- Jquery Datable Bootstrap js-->
 		<script type="text/javascript" src="${js}/dataTables.bootstrap4.js"></script>
+		
+		<!-- Jquery Validator js-->
+		<script type="text/javascript" src="${js}/jquery.validate.js"></script>
 
 		<!-- Self coded javascript -->
 		<script src="${js}/myapp.js"></script>

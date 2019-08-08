@@ -23,10 +23,21 @@ $(function(){
 	}	
 		
 		
-	$('[data-toggle="tooltip"]').tooltip();   
+	$('[data-toggle="tooltip"]').tooltip();
+	
+	$('#passShowHide').tooltip();
+	
+	$('#passShowHide').click(function(){
+		$('#password').attr('type',$(this).is(':checked') ? 'text' : 'password');
+	});
+	
+	
+
+	
 	
 	var $table = $('#productListTable');
 	//execute the below code only where we have this table
+	
 	
 
 	if($table.length){
@@ -297,9 +308,97 @@ $(function(){
 		});
 	}
 	
-	
-	
 	//------------------------------------------------------------
+	
+	
+	//validation code for category form
+	
+	var $categoryForm = $('#categoryForm');
+	
+	$categoryForm.validate({
+		
+		rules : {
+			
+			name : {
+				required : true,
+				minlength : 2,
+			},
+	
+			description : {
+				required : true,
+			}
+		},
+		
+		messages : {
+			
+			name : {
+				required : "Please Enter the category Name..!",
+				minlength : "Category name should not be less than 2 character",
+			},
+	
+			description : {
+				required : "Please Enter the category Description..!",
+			}
+		},
+		
+		errorElement : 'em',
+		
+		errorPlacement : function(error,element){
+			//add the class of help-block
+			error.addClass('help-block');
+			
+			//add error element after the input
+			error.insertAfter(element);
+		}
+		
+	});
+	
+	
+	//-----------------------------
+	
+	//validation code for Login form
+	
+	var $loginform = $('#loginform');
+	
+	$loginform.validate({
+		
+		rules : {
+			
+			userEmail : {
+				required : true,
+				email : true,
+			},
+	
+			userPassword : {
+				required : true,
+			}
+		},
+		
+		messages : {
+			
+			userEmail : {
+				required : "Please Enter the Username..!",
+				email : "Please enter valid email address",
+			},
+	
+			userPassword : {
+				required : "Please enter the Password",
+			}
+		},
+		
+		errorElement : 'em',
+		
+		errorPlacement : function(error,element){
+			//add the class of help-block
+			error.addClass('help-block');
+			
+			//add error element after the input
+			error.insertAfter(element);
+		}
+		
+	});
+	
+	
 	
 		
 });

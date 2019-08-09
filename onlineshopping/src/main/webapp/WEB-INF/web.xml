@@ -41,17 +41,17 @@
 
 	<!-- Spring Security configuration -->
 	<!-- needed for ContextLoaderListener -->
-	<!-- <context-param>
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/config/spring-security.xml</param-value>
-	</context-param> -->
+	</context-param>
 
 	<!-- Bootstraps the root web application context before servlet initialization -->
-	<!-- <listener>
+	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener> -->
+	</listener>
 
-	<!-- <filter>
+	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
@@ -59,7 +59,11 @@
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
+	
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
 
 	<jsp-config>
 		<jsp-property-group>

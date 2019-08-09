@@ -27,7 +27,7 @@ import com.shree.shoppingbackend.util.SystemConstant;
 @EnableTransactionManagement
 public class HibernateConfig {
 	
-	@Bean
+	@Bean("dataSource")
 	public DataSource getDataSource() {
 		//provide the database connection information
 		BasicDataSource objBasicDataSource = new BasicDataSource();

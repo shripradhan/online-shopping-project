@@ -42,39 +42,19 @@
 
 <!-- jquery dataTable bootstrap-->
 <link href="${css}/dataTables.bootstrap4.css" rel="stylesheet">
+ 
 
-<style>
-body {
-	margin: 0;
-	padding: 0;
-	background-color: #17a2b8;
-	height: 100vh;
-}
+	
 
-#login .container #login-row #login-column #login-box {
-	margin-top: 35px;
-	max-width: 600px;
-	height: 320px;
-	border: 1px solid #9C9C9C;
-	background-color: #EAEAEA;
-	border-radius: 12px;
-}
-
-#login .container #login-row #login-column #login-box #login-form {
-	padding: 20px;
-}
-
-#login .container #login-row #login-column #login-box #login-form #register-link
-	{
-	margin-top: -85px;
-}
-</style>
 
 </head>
 
 <body>
 
 	<div class="wrapper">
+	
+		<!-- Navigation -->
+		<%@ include file="./shared/login_navigation.jsp"%>
 
 		<!-- Page Content -->
 		<div class="content">
@@ -90,7 +70,7 @@ body {
 				</c:if>
 			</div>
 			
-			<div id="login">
+			<%-- <div id="login">
 				<div class="container">
 					<h3 class="text-center text-info">Login Form</h3>
 					<div id="login-row"
@@ -124,8 +104,51 @@ body {
 					</div>
 				</div>
 			</div>
+		</div> --%>
+		
+		<div class="container d-flex align-items-center flex-column justify-content-center h-100" >
+			<div class="card" style="width:500px">
+  				<div class="card-header text-center bg-info text-white" >
+    				Login
+  				</div>
+  			<div class="card-body">
+  			<!--  <h5 class="card-title">Special title treatment</h5>-->
+    			<form id="loginform" class="form" action="${contextRoot}/login" method="POST">
+			  		<div class="form-group row">
+			        	<div class="col-sm-1"></div>
+			        	<label for="inputPassword" class="col-sm-3 col-form-label">Email</label>
+			    		<div class="col-sm-7">
+			      			<input type="email" name="userEmail" class="form-control" id="inputPassword" placeholder="Enter email as Username">
+			                <div class="col-sm-1"></div>
+			    		</div>
+			  		</div>
+			  		
+			  		<div class="form-group row">
+			        <div class="col-sm-1"></div>
+			    		<label for="inputPassword" class="col-sm-3 col-form-label">Password</label>
+			    		<div class="col-sm-7">
+			      			<input type="password" name="userPassword" class="form-control" id="inputPassword" placeholder="Password">
+			    		</div>
+			            <div class="col-sm-1"></div>
+			  		</div>
+			  		
+			  		<div class="form-group row">
+			  			<div class="col-sm-5"></div>
+						<!-- <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me"
+												type="checkbox"></span></label><br>  -->
+							<input type="submit" name="submit" class="btn btn-info btn-sm" value="Login">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<div class="col-sm-7"></div>	
+					</div>
+					<hr>
+			  		<div id="register-link" class="text-right">
+						New User -<a href="#" class="text-info">Register here</a>
+					</div>
+				</form>
+			</div>
 		</div>
-
+	</div>
+		
 		<!-- Footer -->
 		<%@ include file="./shared/footer.jsp"%>
 

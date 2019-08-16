@@ -25,7 +25,8 @@ $(function(){
 		
 	$('[data-toggle="tooltip"]').tooltip();
 	
-	$('#passShowHide').tooltip();
+	 $('#passShowHide').tooltip();
+
 	
 	$('#passShowHide').click(function(){
 		$('#password').attr('type',$(this).is(':checked') ? 'text' : 'password');
@@ -151,7 +152,27 @@ $(function(){
 	});
 	
 	
-	//code for switch toggle buttons
+	
+	//to tackle the csrf token
+	var token = $('meta[name="_csrf"]').attr('content');
+	var header = $('meta[name="_csrf_header"]').attr('content');
+	
+	if(token.length > 0 && header.length > 0){
+		//set the token header for the ajax request
+		$(document).ajaxSend(function(event,xhr,options){
+			xhr.setRequestHeader(header,token)
+		});
+	}
+	
+	//code for password field checkbox event
+	$('#passShowHide').change(function() {
+        if($(this).is(":checked")) {
+            $(this).attr("data-original-title", "Hide Password");
+        }else{
+        	$(this).attr("data-original-title", "Show Password");
+        }
+    	
+    });
 	
 	
 	

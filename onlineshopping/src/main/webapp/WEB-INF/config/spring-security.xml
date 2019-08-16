@@ -15,9 +15,17 @@
 	<context:component-scan base-package="com.shree.shoppingbackend.config"/>
 	<context:component-scan base-package="com.shree.onlineshopping.handler"/>
 	
+	<!-- disabled the security for static resources -->
+	<security:http pattern="/resources/**" security="none"/>
+	
 	<security:http>
+		<security:intercept-url pattern="/login" access="permitAll"/>
 		<security:intercept-url pattern="/**" access="hasAuthority('USER')"/>
-		<security:form-login/>
+		<security:form-login login-page="/login" username-parameter="userEmail" password-parameter="userPassword" />
+		
+		<!-- handling login failure operation using 'authentication-failure-url' attribute -->
+		<!-- <security:form-login login-page="/login" username-parameter="userEmail" password-parameter="userPassword" 
+		authentication-failure-url="/loginFaild" /> -->
 	</security:http>
 	
 	<security:authentication-manager>

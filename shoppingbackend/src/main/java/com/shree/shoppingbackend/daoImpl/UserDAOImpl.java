@@ -61,7 +61,6 @@ public class UserDAOImpl implements UserDAO {
 			return sessionFactory.getCurrentSession().createQuery(selectQuery, User.class).setParameter("email", email).getSingleResult();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
 			return null;
 		}
 	}

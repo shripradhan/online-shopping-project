@@ -13,9 +13,9 @@
   </footer>
    -->
 
-<footer class="page-footer font-small teal pt-1  bg-dark fixed-bottom">
+<footer class="page-footer font-small teal pt-1  bg-light fixed-bottom">
 
-	<div class="footer-copyright text-center text-white py-2">Copyright
+	<div class="footer-copyright text-center text-primay py-2">Copyright
 		&copy; Your Website 2019</div>
 	<!-- Copyright -->
 

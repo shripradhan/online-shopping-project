@@ -133,6 +133,17 @@ public class PageController {
 		return mv;
 	}
 	
+	@RequestMapping(value= "/accessFailed")
+	public ModelAndView accessDenied() {
+		ModelAndView mv = new ModelAndView("error");
+		
+		mv.addObject("title", "403 - Access Denied");
+		mv.addObject("errorMsg", "Access Denied");
+		mv.addObject("errorTitle", "Aha..!, You Cought.");
+		mv.addObject("errorDescription","You don't have authority to access these page");
+		return mv;
+	}
+	
 	
 	
 	/*@RequestMapping(value= "/test/{greeting}")

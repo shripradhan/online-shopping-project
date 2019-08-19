@@ -64,3 +64,33 @@ INSERT INTO product
 (code,name,brand,description,unit_price,quantity,is_active,category_id,supplier_id)
 Values('PROD8465489','Samsung Galaxy M10','Samsung','Now livestream your favorite HD content with the Widevine L1 Certification.','7990.00',150,'true',101,3001);
 
+
+
+CREATE TABLE product_image(
+	img_id INT NOT NULL IDENTITY(1300,1) PRIMARY KEY,
+	img_name VARCHAR(40),
+	id INT FOREIGN KEY REFERENCES product(id),
+);
+
+CREATE TABLE cart(
+	id INT NOT NULL IDENTITY(1400,1) PRIMARY KEY,
+	cart_lines int,
+	grand_total float,
+	uid INT FOREIGN KEY REFERENCES user_detail(id),
+);
+
+CREATE TABLE address(
+	id INT NOT NULL IDENTITY(1500,1) PRIMARY KEY,
+	address_line_one varchar(255),
+	address_line_two varchar(255),
+	billing bit,
+	city varchar(255),
+	country varchar(255),
+	postal_code varchar(255),
+	shipping bit,
+	state varchar(255),
+	userId INT FOREIGN KEY REFERENCES user_detail(id),
+);
+
+
+

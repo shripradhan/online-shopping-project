@@ -23,6 +23,10 @@ public class GlobalController {
 	
 	private UserModel userModel = null;
 	
+	public GlobalController() {
+		System.out.println("In GlobalController Constructor");
+	}
+	
 	@ModelAttribute
 	public UserModel getUserModel() {
 		

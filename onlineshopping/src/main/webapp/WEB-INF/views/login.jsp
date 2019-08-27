@@ -68,6 +68,15 @@
 						</div>					
 					</div>
 				</c:if>
+				<c:if test="${not empty logoutMsg}">
+					<div class="row d-flex justify-content-center">
+						<div class="col-md-offset-3 col-md-6 ">
+							<div class="alert alert-success">
+								<center>${logoutMsg}</center>
+							</div>
+						</div>					
+					</div>
+				</c:if>
 			</div>
 			
 			<%-- <div id="login">
@@ -142,7 +151,7 @@
 					</div>
 					<hr>
 			  		<div id="register-link" class="text-right">
-						New User -<a href="#" class="text-info">Register here</a>
+						New User - &nbsp;&nbsp;&nbsp;<a href="${contextRoot}/register" class="text-info btn btn-primary btn-sm"">Register here</a>
 					</div>
 				</form>
 			</div>

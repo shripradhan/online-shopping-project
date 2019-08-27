@@ -1,8 +1,14 @@
 package com.shree.onlineshopping.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.shree.onlineshopping.exception.ProductNotFoundException;
 import com.shree.shoppingbackend.dao.CategoryDAO;
 import com.shree.shoppingbackend.dao.ProductDAO;
+import com.shree.shoppingbackend.dao.UserDAO;
 import com.shree.shoppingbackend.dto.Category;
 import com.shree.shoppingbackend.dto.Product;
+import com.shree.shoppingbackend.dto.User;
 
 @Controller
 public class PageController {
@@ -26,6 +34,9 @@ public class PageController {
 	
 	@Autowired
 	private ProductDAO objProduct;
+	
+	@Autowired
+	private UserDAO userDAO;
 	
 
 	@RequestMapping(value= {"/","/home","/index"})
@@ -121,18 +132,33 @@ public class PageController {
 	}
 	
 	
+	/*
+	 * handler method for login page
+	 */
+	
 	@RequestMapping(value= "/login")
-	public ModelAndView launchLogin(@RequestParam(name="error", required=false) String error) {
+	public ModelAndView launchLogin(@RequestParam(name="error", required=false) String error,
+			@RequestParam(name="logout", required=false) String logout
+			) {
 		ModelAndView mv = new ModelAndView("login");
 		
 		if(error != null) {
 			mv.addObject("errorMsg", "Invalid username or password");
 		}
 		
+		if(logout != null) {
+			
+			mv.addObject("logoutMsg",logout+" You've Logout Seccessfully");
+		}
+		
 		mv.addObject("title", "Login");
 		return mv;
 	}
 	
+	/*
+	 * handler method for access denied page
+	 * 
+	 */
 	@RequestMapping(value= "/accessFailed")
 	public ModelAndView accessDenied() {
 		ModelAndView mv = new ModelAndView("error");
@@ -142,6 +168,26 @@ public class PageController {
 		mv.addObject("errorTitle", "Aha..!, You Cought.");
 		mv.addObject("errorDescription","You don't have authority to access these page");
 		return mv;
+	}
+	
+	/**
+	 * handler method for logout 
+	 * 
+	 */
+	
+	@RequestMapping(value = "/app-logout")
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		
+		String loginUserName = null;
+		//first we are going to fetch the authentication obj
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		loginUserName = ((User)userDAO.findUserByEmail(auth.getName())).getFirstName();
+		
+		if(auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		
+		return "redirect:/login?logout="+loginUserName;
 	}
 	
 	

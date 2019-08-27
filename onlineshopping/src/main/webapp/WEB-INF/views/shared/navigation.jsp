@@ -66,7 +66,7 @@
 						</security:authorize>
 						
 		            	<li class="dropdown-item">
-							<a href="${contextRoot}/logout">Logout</a>
+							<a href="${contextRoot}/app-logout">Logout</a>
 						</li>
 		            </ul>
           		</li>

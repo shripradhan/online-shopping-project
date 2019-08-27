@@ -2,7 +2,7 @@
 <%@ page import="com.shree.shoppingbackend.dto.Product" %>
 
 <%@ page import="com.shree.shoppingbackend.dto.ProductImage" %>
-
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <style>
 	
 	.imgStyle{
@@ -48,14 +48,14 @@
 	<div class="col-xs-12 col-sm-4">
 		<c:forEach items="${product.productImages}" var="img" varStatus="loop">
 			<c:if test="${loop.index == 0}">
-				<img id="mainImage" height="500" width="350" style="border: 3px solid white" src="${images}/${img.imgName}.jpg" >
+				<img id="mainImage" height="500" width="350" style="border: 3px solid white" src="${product_images}/${img.imgName}.jpg" >
 				<br/>
 				<br/>
 			</c:if>
 		</c:forEach>
 		<c:forEach items="${product.productImages}" var="img" varStatus="loop">
 			<span id="divContainer">
-				<img id="mainImage" class="imgStyle" src="${images}/${img.imgName}.jpg" >
+				<img id="mainImage" class="imgStyle" src="${product_images}/${img.imgName}.jpg" >
 			</span>
 		</c:forEach>
 	</div> 
@@ -75,19 +75,27 @@
 			<h4>Price : <strong> &#8377; ${product.unitPrice} /-</strong></h4>
 			<hr/>
 			
-			<c:choose>
-			
-				<c:when test="${product.quantity < 1}">
-					<h6>Quantity Available :<span style="color:red">  Out Of Stock !</span>  | People's Views : ${product.views}</h6>
-					<a href="javascript:void(0)" class="btn btn-success disabled"><strike><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</strike></a>
-				</c:when>
+			<security:authorize access="hasAuthority('USER')">
+				<c:choose>
 				
-				<c:otherwise>
-					<span><h6>Quantity Available : ${product.quantity}    |    People's Views : ${product.views}</h6></span>
-					<a href="${contextRoot}/cart/add/${product.id}/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
-				</c:otherwise>
+					<c:when test="${product.quantity < 1}">
+						<h6>Quantity Available :<span style="color:red">  Out Of Stock !</span>  | People's Views : ${product.views}</h6>
+						<a href="javascript:void(0)" class="btn btn-success disabled"><strike><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</strike></a>
+					</c:when>
+					
+					<c:otherwise>
+						<span><h6>Quantity Available : ${product.quantity}    |    People's Views : ${product.views}</h6></span>
+						<a href="${contextRoot}/cart/add/${product.id}/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span>Add to Cart</a>
+					</c:otherwise>
+				
+				</c:choose>
+			</security:authorize>
 			
-			</c:choose>
+			<security:authorize access="hasAuthority('ADMIN')">
+					<a href="${contextRoot}/manage/${product.id}/product" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+			</security:authorize>
+			
+			
 			
 			<%-- <span><h6>Quantity Available : ${product.quantity} | People's Views : ${product.views}</h6></span> --%>
 			

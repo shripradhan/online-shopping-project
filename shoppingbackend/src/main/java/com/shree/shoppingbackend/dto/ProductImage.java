@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name="productImages")
+@Table(name="product_image")
 public class ProductImage {
 
 	

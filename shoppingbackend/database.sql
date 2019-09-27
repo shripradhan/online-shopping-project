@@ -93,4 +93,17 @@ CREATE TABLE address(
 );
 
 
+--Create Table cart_line to store the cart details date : 09-09-2019
+CREATE TABLE cart_line(
+	id INT NOT NULL IDENTITY(2500,1) PRIMARY KEY,
+	total DECIMAL(10,2), 
+	product_count INT,
+	buying_price DECIMAL(10,2),
+	is_available BIT,
+	cart_id INT FOREIGN KEY REFERENCES cart(id),
+	product_id INT FOREIGN KEY REFERENCES product(id),
+);
+
+
+
 

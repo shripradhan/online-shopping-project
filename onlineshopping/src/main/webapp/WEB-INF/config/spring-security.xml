@@ -34,8 +34,7 @@
 		
 		<!-- for authentication failure -->
 		<security:access-denied-handler error-page="/accessFailed"/>
-		
-		
+
 		<!-- handling login failure operation using 'authentication-failure-url' attribute -->
 		<!-- <security:form-login login-page="/login" username-parameter="userEmail" password-parameter="userPassword" 
 		authentication-failure-url="/loginFaild" /> -->

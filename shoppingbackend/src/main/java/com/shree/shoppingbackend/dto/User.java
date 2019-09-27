@@ -14,62 +14,63 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
-@Table(name="user_detail")
-public class User implements Serializable{
-	
-	
-	
+@Table(name = "user_detail")
+public class User implements Serializable {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//private fields for User
-	
+	// private fields for User
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="first_name")
+
+	@Column(name = "first_name")
 	@NotBlank(message = "Please enter first Name !")
 	private String firstName;
-	
-	@Column(name="last_name")
+
+	@Column(name = "last_name")
 	@NotBlank(message = "Please enter last Name !")
 	private String lastName;
-	
+
 	@NotBlank(message = "Please enter email !")
 	private String email;
-	
-	@Column(name="contact_number")
+
+	@Column(name = "contact_number")
 	@NotBlank(message = "Please enter contact number !")
 	private String contactNumber;
-	
-	
+
+/*	@Column(name = "profile_img")
+	private String profileImg;
+
+	@Transient
+	private MultipartFile profileImgFile;
+*/
 	private String role;
-	
+
 	@NotBlank(message = "Please enter password !")
 	private String password;
-	
-	
-	//confirm Password Transient field
+
+	// confirm Password Transient field
 	@Transient
 	private String confirmPassword;
-	
+
 	private boolean enabled = true;
-	
+
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Cart cart;
-	
-	
 
 	/*
 	 * setters and getters for the all fields
 	 * 
 	 */
-	
+
 	public int getId() {
 		return id;
 	}
@@ -150,13 +151,27 @@ public class User implements Serializable{
 		this.cart = cart;
 	}
 
+	/*public String getProfileImg() {
+		return profileImg;
+	}
+
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
+
+	public MultipartFile getProfileImgFile() {
+		return profileImgFile;
+	}
+
+	public void setProfileImgFile(MultipartFile profileImgFile) {
+		this.profileImgFile = profileImgFile;
+	}*/
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", contactNumber=" + contactNumber + ", role=" + role + ", password=" + password
 				+ ", confirmPassword=" + confirmPassword + ", enabled=" + enabled + ", cart=" + cart + "]";
 	}
-
-	
 
 }

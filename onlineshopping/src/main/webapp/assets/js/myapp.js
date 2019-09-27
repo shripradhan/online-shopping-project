@@ -13,6 +13,8 @@ $(function(){
 				break;
 			case 'Manage Products' : 
 				$('#manageProducts').addClass('active');
+			case 'User Cart' : 
+				$('#login').addClass('active');
 			default :
 				if(menu == 'Home')
 					$('#home').addClass('active');
@@ -54,7 +56,7 @@ $(function(){
 		
 		$table.DataTable({
 		
-			lengthMenu : [[3,5,10,-1],['3 Record','5 Record', '10 Record', "All Record"]],
+			lengthMenu : [[3,5,10,-1],['3 Record','5 Record', '10 Record', 'All Record']],
 			pageLength : 5,
 			ajax : {
 				'url' : jsonUrl,
@@ -100,14 +102,15 @@ $(function(){
 					
 						strButtons += '<a href="' + window.contextRoot + '/show/'+ data +'/product" class="btn btn-primary" data-toggle="tooltip" title="View Product"><span class="glyphicon glyphicon-eye-open" ></span></a> &#160;';
 						
-						if(row.quantity < 1){
-							strButtons += '<a  href="javascript:void(0)" class="btn btn-success disabled" data-toggle="tooltip" title="Add to Cart"><span class="glyphicon glyphicon-shopping-cart"></span></a>'
-						}else{
-							
-							if(userRole == 'ADMIN')
-								strButtons += '<a href="'+window.contextRoot+'/manage/'+data+'/product" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>'
-							else
-								strButtons += '<a  href="' + window.contextRoot + '/cart/add/'+data+'/product" class="btn btn-success" data-toggle="tooltip" title="Add to Cart"><span class="glyphicon glyphicon-pencil"></span></a>'
+						if(userRole == 'ADMIN'){
+							strButtons += '<a href="'+window.contextRoot+'/manage/'+data+'/product" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>'
+						}
+						else{
+							if(row.quantity < 1){
+								strButtons += '<a  href="javascript:void(0)" class="btn btn-success disabled" data-toggle="tooltip" title="Add to Cart"><span class="glyphicon glyphicon-shopping-cart"></span></a>'
+							}else{
+								strButtons += '<a  href="' + window.contextRoot + '/cart/add/'+data+'/product" class="btn btn-success" data-toggle="tooltip" title="Add to Cart"><span class="glyphicon glyphicon-shopping-cart"></span></a>'
+							}
 						}
 						return strButtons;
 					}
@@ -423,7 +426,47 @@ $(function(){
 		
 	});
 	
+	//---------------------------------------------------------
 	
+	//handling the event of refresh cart button
+	$('button[name="refreshCart"]').click(function(){
+
+		//fetch the cartLine id
+		let cartLineId = $(this).attr('value');
+		let countElement = $('#cart_'+ cartLineId);
+		
+		let originalCount = $(countElement).attr('value');
+		let currentCount = $(countElement).val();
+		
+		
+		if(originalCount != currentCount ){
+			
+			//restrict to count must not be less than 1 and greater than 3
+			if(currentCount < 1 || currentCount > 3){
+				//revert back to original count
+				countElement.val(originalCount);
+				bootbox.alert({
+					size : 'medium',
+					title : 'Error',
+					message : 'Product count should be minimum 1 or maxmum 3 !'
+				});
+			}else{
+				
+				//create request url to forwarding the request to controller
+				var updateUrl = window.contextRoot + '/cart/' + cartLineId +'/update?productCount=' +currentCount
+				
+				window.location.href = updateUrl;
+			}
+		
+		}
+		
+		
+	});
+	
+	$('#cart_2502').change(function(){
+		alert('hi there');
+	});
+
 	
 		
 });

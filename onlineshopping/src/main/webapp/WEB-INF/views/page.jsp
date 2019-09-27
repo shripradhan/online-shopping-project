@@ -3,9 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
+
 <spring:url var="css" value="/resources/css" />
 <spring:url var="js" value="/resources/js" />
-<spring:url var="images" value="/resources/images" />
+<spring:url var="product_images" value="/resources/images/product_images" />
+<spring:url var="profile_images" value="/resources/images/profile_images" />
+
 <c:set var="contextRoot" value="${pageContext.request.contextPath}"></c:set>
 
 
@@ -45,6 +48,14 @@
 
 <!-- jquery dataTable bootstrap-->
 <link href="${css}/dataTables.bootstrap4.css" rel="stylesheet">
+
+<link href="${css}/all.css" rel="stylesheet">
+
+<style>
+	.btn-width1 {
+		width : 140%;
+	}
+</style>
 
 </head>
 
@@ -96,6 +107,11 @@
 			<!-- load only when user click on Manage Products -->
 			<c:if test="${userClickmanageProducts == true}">
 				<%@ include file="./manageProducts.jsp"%>
+			</c:if>
+			
+			<!-- load only when user click on show Cart -->
+			<c:if test="${userClickShowCart == true}">
+				<%@ include file="./cart.jsp"%>
 			</c:if>
 		</div>
 

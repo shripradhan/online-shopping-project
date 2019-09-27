@@ -105,6 +105,18 @@ public class RegisterHandler {
 		
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
+		/*MultipartFile file = user.getProfileImgFile();
+		
+		String fileName = "PROF"+UUID.randomUUID().toString().substring(28).toUpperCase()+user.getId();
+		
+		user.setProfileImg(fileName);
+
+		//check file are exist or empty
+		if(!file.getOriginalFilename().equals("")) {
+			//call fileUploading method
+			FileUploadUtility.uploadProfileFile(request, file, fileName);
+			
+		}*/
 		//save the user
 		userDAO.addUser(user);
 		

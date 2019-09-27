@@ -30,7 +30,7 @@ public class GlobalController {
 	@ModelAttribute
 	public UserModel getUserModel() {
 		
-		
+		System.out.println("GlobalController  : getUserModel()");
 		
 		if(session.getAttribute("userModel") == null) {
 			

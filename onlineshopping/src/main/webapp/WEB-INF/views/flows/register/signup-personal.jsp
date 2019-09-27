@@ -11,7 +11,7 @@
 
 		<div class="card-body">
 			<div class="container">
-				<form:form action="" method="POST"  modelAttribute="user" cssClass="">
+				<form:form action="" method="POST"  modelAttribute="user" cssClass="" >
 					
 					<div class="form-group row  d-flex justify-content-center">
 						<label for="inputEmail3" class="col-sm-3 col-form-label">First Name</label>
@@ -59,6 +59,15 @@
 							<form:errors path="confirmPassword" cssClass="help-block" element="em" />
 						</div>
 					</div>
+					
+					<!-- Profile Image Uploading -->
+					<!-- <div class="form-group row  d-flex justify-content-center">
+						<label for="inputEmail3" class="col-sm-3 col-form-label">Select Profile Photo :</label>
+						<div class="col-sm-5">
+							<input type="file"  name="profileImgFile" id="profileImgFile"  class="form-control" placeholder="Select Profile Photo"/>
+							
+						</div>
+					</div> -->
 					
 					
 					<div class="form-group row  d-flex justify-content-center">
